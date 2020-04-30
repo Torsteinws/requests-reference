@@ -1,0 +1,6 @@
+# Environent
+.venv
+
+# vs code tools
+.history
+.vscode
