@@ -3,6 +3,8 @@ import requests
 
 class color:
     YELLOW = '\033[33m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
     END = '\033[m'
 
 def clear_terminal():
@@ -73,9 +75,26 @@ def simple_post():
     print(color.YELLOW, 'Headers:  ', color.END, r_dict['headers'])
 
 
+def simple_timeout():
+    timeout = 2 # seconds
+    response_delay = 3
+    url = 'http://httpbin.org/delay/' + str(response_delay) # The url will wait the response_delay before responding
+
+    try:
+        r = requests.get(url, timeout=timeout)
+        if r.ok:
+            print('\n')
+            print(color.GREEN, 'Connection did not time out', color.END)
+    
+    except requests.exceptions.Timeout as e:
+        print('\n')
+        print(color.RED, 'Connection timed out', color.END)
+        print(color.RED, 'Exception:', color.END, e)
+
 if __name__ == "__main__":
     clear_terminal()
     simple_request()
     image_request()
     build_simple_url()
     simple_post()
+    simple_timeout()
