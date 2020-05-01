@@ -106,6 +106,16 @@ def basic_auth():
     print(color.GREEN, 'Correct credentials: ...', r_correct, color.END)
     print(color.RED,   'Wrong credentials: .....', r_wrong,   color.END)
 
+def bearer_auth():
+    url = 'http://httpbin.org/bearer'
+    headers = {"Authorization": "Bearer MY-JSON-WEB-TOKEN"}
+    r = requests.get(url, headers=headers)
+
+    print('\n')
+    print(color.YELLOW, 'Bearer autnetication status:    ', color.END, r.status_code, r.reason)
+    print(color.YELLOW, 'Bearer authentication response: ', color.END, r.text)
+
+
 if __name__ == "__main__":
     clear_terminal()
     simple_request()
@@ -114,3 +124,4 @@ if __name__ == "__main__":
     simple_post()
     simple_timeout()
     basic_auth()
+    bearer_auth()
