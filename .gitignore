@@ -4,3 +4,6 @@
 # vs code tools
 .history
 .vscode
+
+# Folders
+downloads/*
