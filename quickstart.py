@@ -91,6 +91,21 @@ def simple_timeout():
         print(color.RED, 'Connection timed out', color.END)
         print(color.RED, 'Exception:', color.END, e)
 
+# Authentication using the basic access authentication method:
+#   Format of header field: Authorization: Basic <credentials in base64>
+def basic_auth():
+    username = 'thanos'
+    correct_password = 'password' # as all things should be
+    wrong_password = 'wrong password'
+    url = 'http://httpbin.org/basic-auth/thanos/password'
+
+    r_correct = requests.get(url, auth=(username, correct_password))
+    r_wrong = requests.get(url, auth=(username, wrong_password))
+
+    print('\n')
+    print(color.GREEN, 'Correct credentials: ...', r_correct, color.END)
+    print(color.RED,   'Wrong credentials: .....', r_wrong,   color.END)
+
 if __name__ == "__main__":
     clear_terminal()
     simple_request()
@@ -98,3 +113,4 @@ if __name__ == "__main__":
     build_simple_url()
     simple_post()
     simple_timeout()
+    basic_auth()
