@@ -44,6 +44,11 @@ def image_request():
     else:
         raise request_exception(r)
 
+def build_simple_url():
+    params = {'book-id': '1337', 'page': '69'}
+    r = requests.get('https://httpbin.org/', params=params)
+    print(r.url)
 
 simple_request()
 image_request()
+build_simple_url()
