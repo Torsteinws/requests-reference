@@ -1,7 +1,12 @@
 import os
 import requests 
 
-os.system("cls") # Hack to clear the terminal
+class color:
+    YELLOW = '\033[33m'
+    END = '\033[m'
+
+def clear_terminal():
+    os.system("cls") # Hack to clear the terminal
 
 def request_exception(request):
     # Useful info about the request
@@ -25,9 +30,12 @@ def simple_request():
     # if status code 200
     if r.ok: 
         # access header
-        print('content-type', r.headers['content-type'], '\n')
+        print(color.YELLOW, 'content-type:', color.END, r.headers['content-type'])
         # access html
-        print('HTML response: \n', r.text[0:50], '\n  ... \n ', r.text[-50:])
+        print(color.YELLOW, 'HTML response:', color.END)
+        print(r.text[0:50])
+        print(color.YELLOW, '...', color.END)
+        print(r.text[-50:])
     else:
         raise request_exception(r)
 
@@ -47,8 +55,27 @@ def image_request():
 def build_simple_url():
     params = {'book-id': '1337', 'page': '69'}
     r = requests.get('https://httpbin.org/', params=params)
-    print(r.url)
 
-simple_request()
-image_request()
-build_simple_url()
+    print(color.YELLOW, '\n Built url: ', color.END, r.url)
+
+def simple_post():
+    # Sends a payload as formdata
+    payload = {'username': 'Thanos', 'password': 'password - as all things should be'}
+    r = requests.post('https://httpbin.org/post', data=payload)
+    
+    # Converts the response from json to a dictionary
+    r_dict = r.json() 
+    
+    print('\n')
+    print(color.YELLOW, 'Form:     ', color.END, r_dict['form'])
+    print(color.YELLOW, 'Data:     ', color.END, r_dict['data'])
+    print(color.YELLOW, 'Files:    ', color.END, r_dict['files'])
+    print(color.YELLOW, 'Headers:  ', color.END, r_dict['headers'])
+
+
+if __name__ == "__main__":
+    clear_terminal()
+    simple_request()
+    image_request()
+    build_simple_url()
+    simple_post()
