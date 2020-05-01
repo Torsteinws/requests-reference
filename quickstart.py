@@ -4,15 +4,18 @@ import requests
 os.system("cls") # Hack to clear the terminal
 
 def request_exception(request):
+    # Useful info about the request
     request_type = request.request
     url = request.url
     status = request.status_code
     reason = request.reason
     
+    # Build error message with the useful info
     error_message = 'request to {0} failed:'.format(url)
     error_message += '\n    request:....{0}'.format(request_type)
     error_message += '\n    status:.....{0}'.format(status)
     error_message += '\n    reason:.....{0}'.format(reason)
+
     return Exception(error_message)
 
 
